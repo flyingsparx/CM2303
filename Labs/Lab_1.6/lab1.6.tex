@@ -1,0 +1,102 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage[dvipsnames]{color}
+\usepackage{alltt}
+
+\definecolor{mygray}{gray}{.75}
+
+\titleformat{name=\section,numberless}[display]
+  {\normalfont\scshape\Large}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+80pt\relax}{2pt}\Huge}
+\titlespacing*{\section}{0pt}{30pt}{10pt}
+
+\titleformat{name=\subsection,numberless}[display]
+  {\normalfont\scshape}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+30pt\relax}{0.4pt}\Huge}
+\titlespacing*{\subsection}{0pt}{20pt}{5pt}
+
+
+\begin{document}
+
+\noindent\Large\textbf{CM2303 (Algorithms \& Data Structures)}\\
+\noindent\large\textit{Non-assessed Labs}
+\vskip30pt
+
+\section*{Lab 1.6: Implementing a basic data structure: String}
+\begin{enumerate}
+
+    \item Choose a programming language runnable/compilable on the lab machines and create a new class (or data structure) named \texttt{MyString}. This class will become your own representation of the String data type, common to many languages, using an array of single characters. In your class, declare a private (if available) character array to represent your string. Depending on your language, your class may look something like this:
+\begin{alltt}
+class MyString \{
+    \textbf{private} char \textit{array} myString;
+\}
+\end{alltt}
+
+    \item Write a constructor method for your \texttt{MyString} class that will enable you to instantiate new objects of \texttt{MyString}. Your constructor should accept one single standard/native String argument: an initial starting value for your \texttt{MyString} object.
+    
+    \item Modify your constructor method so that it instantiates your \texttt{myString} array to the correct length and stores the constructor's String argument as a series of characters represented by \texttt{myString}.
+
+    \item Overload or modify your constructor (depending on language) so that objects of your class can be instantiated \textit{without} an argument. The \texttt{myString} array will still need to be initialized.
+
+    \item Create a (private) method for your class, called \texttt{get\_string()}, that returns the \texttt{myString} character array as a standard/native String.
+
+    \item Create a (public) method for your class, called \texttt{print()}, that appropriately prints the represented String to standard output. (\textit{hint: your \texttt{get\_string()} method might be useful}).
+
+    \item Create a (public) method for your class, called \texttt{equals()}, that accepts a single String argument and returns \textit{true} if the argument String has an equal value to your String representation, and \textit{false} if otherwise.
+
+    \item Overload or modify \texttt{equals()} so that it can also accept instances of \texttt{MyString} to check for equality.
+
+    \item Modify your \texttt{equals()} method to accept a second Boolean argument that specifies whether, or not, case should be ignored when checking for equality.
+
+    \item Check your \texttt{MyString} class so far by writing some simple tests:
+\begin{alltt}
+s = new MyString("Hello, world");
+case_insensitive_match = s.equals("hello, world", false); // Should be true
+case_sensitive_match = s.equals("hello, world", true); // Should be false
+\end{alltt}
+
+    \item Create a (public) method for your class, called \texttt{get\_length()}, that returns the current length of your String representation as an Integer.
+
+    \item Write a method, \texttt{index\_of()}, that accepts a single character \textbf{or} character sequence. The method should return the Integer index of the first occurrence of the argument. If no match is found, the method should return -1. (\textit{hint: You may need to overload your method}).
+
+    \item Write a method, \texttt{contains()}, that accepts a single character \textbf{or} character sequence. The method should use \texttt{index\_of()} to return \textit{true} if the character or sequence exists within the String representation, or \textit{false} if otherwise.
+
+    \item Write a method, \texttt{get\_character()}, that accepts a single Integer, $i$, and returns the character of the String at position $i$. 
+ 
+    \item Write a method, \texttt{insert()}, that accepts an Integer index and a character and inserts the specified character into that position of \texttt{myString}. (\textit{hint: you will need to remember to extend \texttt{myString} and shift later characters along by one}).
+
+    \item Write a method, \texttt{delete()}, that accepts a single Integer index and deletes the character at that position of the array. 
+
+    \item Overload (or modify) \texttt{delete()} so that it also accepts a character. The method should use your \texttt{index\_of()} method to appropriarely delete the first instance of the specified character.
+
+    \item Overload (or modify) your \texttt{insert()} and \texttt{delete()} method so that they can both also accept character sequences for insertion and deletion.
+
+    \item Overload (or modify) your \texttt{delete()} method so that it also accepts a second Integer argument to indicate the number of characters to be deleted from the specified location. For example, calling \texttt{delete(4, 3)} on the \texttt{MyString} instance representing \texttt{Hello, world} should result in the instance instead representing \texttt{Hellworld}.
+
+    \item Using \texttt{insert()}, overload or modify your constructor so that new instances of \texttt{MyString} can be initialized from existing \texttt{MyString} objects.
+
+    \item Your \texttt{MyString} class now has some rich String functionality similar to that often provided by major programming languages. Test your class by writing some code to instantiate it and invoke its methods.
+
+\begin{alltt}
+MyString s = new MyString();
+s.print(); // Should print an empty string
+
+s = new MyString("Cardiff");
+int l = s.get_length(); // Should be equal to 7
+int i = s.index_of("d"); // Should be equal to 3
+Boolean c = s.contains("Car"); // Should be true
+Boolean c2 = s.contains("car"); // Should be false
+s.insert("city of ", 0);
+s.print(); // Should print 'city of Cardiff'
+
+MyString s2 = new MyString(s);
+Boolean e = s.equal(s2); // Should be true
+int l2 = s2.get_length(); // Should be 15
+\end{alltt}
+\end{enumerate}
+\end{document}
