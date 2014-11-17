@@ -1,0 +1,74 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage[dvipsnames]{color}
+\usepackage{alltt}
+
+\definecolor{mygray}{gray}{.75}
+
+\titleformat{name=\section,numberless}[display]
+  {\normalfont\scshape\Large}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+80pt\relax}{2pt}\Huge}
+\titlespacing*{\section}{0pt}{30pt}{10pt}
+
+\titleformat{name=\subsection,numberless}[display]
+  {\normalfont\scshape}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+30pt\relax}{0.4pt}\Huge}
+\titlespacing*{\subsection}{0pt}{20pt}{5pt}
+
+
+\begin{document}
+
+\noindent\Large\textbf{CM2303 (Algorithms \& Data Structures)}\\
+\noindent\large\textit{Non-assessed Labs}
+\vskip30pt
+
+\section*{Lab 1.7: Basics of algorithmic complexity}
+
+Note: the questions in this lab sheet assume implementation in \textbf{Java}. If you are using a different language, then you will need to find alternative routes for some of the questions.
+
+\begin{enumerate}
+
+    \item The below pseudocode represents a simple function for finding the largest element in an array.
+\begin{alltt}
+Procedure largest_element(\(A\)):
+    Input:  array of integers, \(A\)
+
+    \(n \gets \) length of \(A\)
+    \(max \gets 0\)
+    for \(i \gets 0\) to \(n - 1\) do:
+        if \(A[i] > max\):
+            \(max \gets A[i]\)
+    Return \(max\)
+\end{alltt}
+    \vskip10pt
+    Implement this function in Java.
+
+    \item Using your \texttt{generate\_random\_array()} method from Lab 1.5, or otherwise, generate a random array of 10,000,000 integers long. 
+
+    \item The following line of Java code uses the static \texttt{System} method \texttt{currentTimeMillis()} to retrieve the current UNIX timestamp.
+\begin{alltt}
+long current_time = System.currentTimeMillis();
+\end{alltt}
+    Use this function to measure the time taken for your \texttt{largest\_element()} function to find the largest element in a random array of length 10,000,000.
+
+    \item Write a loop to repeat the function a few times and print the mean completion time to standard output.
+
+    \item Write an extra outer loop to calculate the mean completion time of finding the maximum integer in random arrays ranging from length 10,000,000 to 200,000,000 (in intervals of 10,000,000). (Note: if you hit memory limits, consider reducing your array sizes down by an order of magnitude).
+
+    \item Use the data from your program output to plot array length against the mean times to find the maximum integer in each case. For your plot, use a local graphing software package or a webapp, such as Google Docs.
+
+    \item What do you notice about the resultant plot? Given the results, what is the algorithmic complexity (in terms of time) of \texttt{largest\_element()}?
+    
+    \item Repeat questions 3-7 for your \texttt{selection\_sort()} algorithm from Lab 1.5. (Note: you should use smaller arrays in this case: maybe between 1,000 - 30,000 in length). 
+
+    \item Express the computational complexity of \texttt{largest\_element()} and \texttt{selection\_sort()} in Big-O notation.
+
+    \item Do you understand how complexity can also be derived from studying the algorithm itself?
+
+\end{enumerate}
+\end{document}
