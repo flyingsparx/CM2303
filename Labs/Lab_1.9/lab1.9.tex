@@ -1,0 +1,93 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage[dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage{alltt}
+
+\definecolor{mygray}{gray}{.75}
+
+\titleformat{name=\section,numberless}[display]
+  {\normalfont\scshape\Large}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+80pt\relax}{2pt}\Huge}
+\titlespacing*{\section}{0pt}{30pt}{10pt}
+
+\titleformat{name=\subsection,numberless}[display]
+  {\normalfont\scshape}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+30pt\relax}{0.4pt}\Huge}
+\titlespacing*{\subsection}{0pt}{20pt}{5pt}
+
+
+\begin{document}
+
+\noindent\Large\textbf{CM2303 (Algorithms \& Data Structures)}\\
+\noindent\large\textit{Non-assessed Labs}
+\vskip30pt
+
+\section*{Lab 1.9: More algorithmic complexity}
+
+As we saw in Lab 1.7, complexity can be measured by timing how long it takes an algorithm to complete a task. Complexity can also be measured by counting the number of \textit{key operations} the algorithm performs. If you have not finished Lab 1.7, please do so first.
+
+\vskip20pt
+
+\begin{enumerate}
+
+    \item Modify your \texttt{largest\_element()} method from Lab 1.7 so that it sets an integer to 0 and then increments it each time \texttt{max} is reassigned. Your method should be either able to return this count variable, or modify an existing variable in the method's scope, so that the integer is available outside of this method.
+
+    \item Using your \texttt{generate\_random\_array()} method from Lab 1.5, or otherwise, generate a random array of 10,000 integers long.
+
+    \item Using a random array of length 10,000, compute the number of operations required in the execution of \texttt{largest\_element()}. Is the count the same each time a new random array is generated?
+
+    \item Write a loop to repeat the computation a few times and print the mean number of operations to standard output. Choose a number of repeats such that the mean is relatively consistent each time. (\textit{Hint: if you are using a scoped integer variable to count, then ensure this is reset to 0 on each repeat})
+
+    \item Write an extra outer loop to gradually increase the length of the array, in intervals of 5,000, up until a length of 100,000 is reached. In each iteration, the mean operations count for each length should be output.
+
+    \item Using a GUI graphing package, or otherwise, plot the mean operations count against the array length. Compare the shape of the plot to that produced for this algorithm in Lab 1.7. 
+
+    \item Repeat questions 3-6 for your \texttt{selection\_sort()} algorithm from Lab 1.5.
+
+    \item What are the advantages of this method of measuring complexity over that used in Lab 1.7?
+
+    \item Let \texttt{f(n)} be a call to a method that performs precisely \textit{n} operations. Express the complexity of the algorithms below in big-O notation.
+    \begin{enumerate}
+        \item
+\begin{alltt}
+for(int i = 0; i < n; i++)\{
+    f(n);
+\}
+\end{alltt}
+
+        \vskip20pt
+        \item 
+
+\begin{alltt}
+f(n);
+f(n);
+for(int i = 0; i < n; i++)\{
+    for(int j = 0; j < n; j++)\{
+        f(n\(\sp{2}\))
+    \}
+\}
+\end{alltt}
+
+    \vskip20pt
+    \newpage
+    \item
+
+\begin{alltt}
+for(int i = 0; i < n; i++)\{
+    for(int j = 0; j < m; j++)\{
+        for(int k = 0; k < n; k++)\{
+            f(p);
+        \}
+    \}
+\}
+\end{alltt}
+
+    \end{enumerate}
+\end{enumerate}
+\end{document}

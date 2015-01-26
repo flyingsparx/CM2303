@@ -1,0 +1,80 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage[dvipsnames]{color}
+\usepackage{alltt}
+
+\definecolor{mygray}{gray}{.75}
+
+\titleformat{name=\section,numberless}[display]
+  {\normalfont\scshape\Large}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+80pt\relax}{2pt}\Huge}
+\titlespacing*{\section}{0pt}{30pt}{10pt}
+
+\titleformat{name=\subsection,numberless}[display]
+  {\normalfont\scshape}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+30pt\relax}{0.4pt}\Huge}
+\titlespacing*{\subsection}{0pt}{20pt}{5pt}
+
+
+\begin{document}
+
+\noindent\Large\textbf{CM2303 (Algorithms \& Data Structures)}\\
+\noindent\large\textit{Non-assessed Labs}
+\vskip30pt
+
+\section*{Lab 2.1: Basic Hash Tables}
+
+A hash table allows for the quick storing and retrieval of key-value pairs. A hash function is used to generate an address for a particular key, in which the value of the key can be stored. Because the address is always the same for each key, the value can can easily be found at the same location in future. 
+
+Although keys and values can really be of any data type, we will use integer keys and string values for these exercises.
+
+\begin{enumerate}
+
+\item Write a Java class to represent a key-value pair, called \texttt{MyHashEntry}, that contains two private fields, \texttt{key} and \texttt{value}, and methods for retrieving them.
+
+\item Write a constructor for \texttt{MyHashEntry} that accepts an integer and a string for constructing a key-value pair object.
+
+\item Write a class outline called \texttt{MyHashTable}, which will support the storage and retrieval of values by their associated keys. The class should have a constructor that accepts a single integer, which will represent the size of the hash table, and a \texttt{MyHashEntry} array named \texttt{hash\_table}. The rest of the questions refer to the \texttt{MyHashTable} class.
+
+\item Modify your \texttt{MyHashTable} constructor so that it initialises \texttt{hash\_table} to the required table size.
+
+\item Using your knowledge of hashing using moduli, write a method for \texttt{MyHashTable}, called \texttt{hash()}, that accepts an integer key and returns a generated integer address for the key.
+
+\item Using \texttt{hash()}, write a method, called \texttt{put()}, that accepts an integer key and string value. The method should store the key-value pair in the appropriate place in \texttt{hash\_table}.
+
+\item Write a method, called \texttt{get()}, that accepts a single integer key and returns the appropriate value. If the value doesn't exist, the method should return \texttt{null}.
+
+\item Test your hash table implementation by writing some code to use its features. For example:
+\begin{alltt}
+MyHashTable table = new MyHashTable(128);
+table.put(3, "Cardiff");
+table.put(17284, "Newport");
+table.put(129, "Swansea");
+
+table.get(3); // This should return "Cardiff"
+\end{alltt}
+
+\end{enumerate}
+
+\noindent Sometimes, hashing causes collisions when the hash function returns the same integer address for the same key. For example, consider the following example:
+\begin{alltt}
+MyHashTable table = new MyHashTable(8);
+table.put(11, "Cardiff");
+table.put(19, "Newport");
+\end{alltt}
+In this case, the first key-value pair would be overwritten by the second, and is therefore not ideal for data-storage. One method to alleviate hash table collisions is called \textit{linear probing}.
+
+\begin{enumerate}
+    \setcounter{enumi}{8}
+    \item Modify \texttt{put()} so that it implements linear probing when storing key-value pairs. For this, if a collision occurs, your method should keep looking forward through the table (one index at a time) for the next index that refers to an empty slot in the array. This index should then be used to store the data.
+    \item Modify \texttt{get()} so that it also implements linear probing when performing lookups. 
+    \item Write a method, called \texttt{delete()}, that accepts an integer key and removes the appropriate record from \texttt{hash\_table} by assigning the field addressed by the appropriate index to a different value. Putting and getting through linear probing should still be possible after a deletion has occurred, so think carefully about how this could be implemented. \textit{(Hint: depending on how you choose to do this, you will likely also need to modify your other methods to help cope with this).}
+     
+\end{enumerate}
+
+\end{document}
