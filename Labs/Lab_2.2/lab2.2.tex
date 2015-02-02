@@ -1,0 +1,98 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage[dvipsnames]{color}
+\usepackage{alltt}
+
+\definecolor{mygray}{gray}{.75}
+
+\titleformat{name=\section,numberless}[display]
+  {\normalfont\scshape\Large}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+80pt\relax}{2pt}\Huge}
+\titlespacing*{\section}{0pt}{30pt}{10pt}
+
+\titleformat{name=\subsection,numberless}[display]
+  {\normalfont\scshape}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+30pt\relax}{0.4pt}\Huge}
+\titlespacing*{\subsection}{0pt}{20pt}{5pt}
+
+
+\begin{document}
+
+\noindent\Large\textbf{CM2303 (Algorithms \& Data Structures)}\\
+\noindent\large\textit{Non-assessed Labs}
+\vskip30pt
+
+\section*{Lab 2.2: Trees}
+
+A tree is a data structure that supports \textit{hierarchy}. Each tree has precisely one root node and any number of internal nodes and leaves. Nodes have children and parents, and the tree is navigable through stored references to each node's children. By definition, trees cannot by cyclic (i.e. a node cannot become its own descendant or ancestor).
+
+In this exercise, we will use the hash table we implemented in Lab 2.1 to store tree nodes. If you placed your \texttt{MyHashEntry} and \texttt{MyHashTable} classes inside one Java source file, then you may find it easier to also place the classes created in this exercise in that same file.
+
+You will need to have completed up to Question 10 from Lab 2.1 to complete this exercise, so please do that before continuing.
+
+\begin{enumerate}
+
+\item Write a Java class called \texttt{Node}. This class should contain two private fields: an integer ID and an \texttt{ArrayList} of type \texttt{Node} to represent this node's children.
+
+\item Write a constructor for \texttt{Node} that accepts an integer (representing the node's ID). The constructor should bind the ID and initialise the \texttt{children} \texttt{ArrayList}. \textit{(Note: for this to compile, you will need to import the \texttt{ArrayList} class).}
+
+\item Write a public method for \texttt{Node} that returns the ID of the node.
+
+\item Write a public method for \texttt{Node} that returns its children as an array of type \texttt{Node}.
+
+\item Write a public method for \texttt{Node} that accepts a single \texttt{Node} argument and adds this to its list of children.
+
+\item Modify your \texttt{MyHashEntry} and \texttt{MyHashTable} classes so that the \texttt{value} of entries are now of type \texttt{Node}.
+
+\item Write a Java class, called \texttt{Tree} that contains one private field: a \texttt{MyHashTable} instance to store the nodes it contains.
+
+\item Write a public method for \texttt{Tree} that will be responsible for adding a new node to the tree. The method should accept two integer arguments: an ID for the new node and an ID for the node's parent. The method should create a new Node and add it to the tree's hash table, using the ID as a key. If the parent ID passed to this method is non-\texttt{null}, then the new node should be added as a child to the appropriate existing parent node.
+
+\item The following code represents a method for recursively displaying the contents of the tree in a simple format.
+\begin{footnotesize}
+\begin{verbatim}
+public void display(int id, int depth) {
+    Node[] children = nodes.get(id).get_children();
+    System.out.println(new String(new char[depth]).replace("\0", "-") + nodes.get(id).get_id());
+    depth++;
+    for (Node child : children) {
+         this.display(child.get_id(), depth);
+    }
+}
+\end{verbatim}
+\end{footnotesize}
+    Add this method to your \texttt{Tree} class. It should be called by supplying the ID and the depth of the tree to start to display from. Therefore, to display the entire tree, one would use the ID of the root node and supply a depth of 0. \textit{(You may need to edit the snippet to match your own variable and method names.)}
+
+\newpage
+
+\item Test your tree implementation by writing some test code:
+\begin{alltt}
+Tree t = new Tree();
+t.add\_node(2, null);
+t.add\_node(4, 2);
+t.add\_node(3, 2);
+t.add\_node(5, 2);
+t.add\_node(1, 4);
+t.add\_node(7, 5);
+t.display(2, 0);
+\end{alltt} 
+    Compiling and running the above code should result in output similar to:
+\begin{verbatim}
+$ javac MyTree
+$ java MyTree
+2
+-4
+--1
+-3
+-5
+--7
+\end{verbatim}
+    
+\end{enumerate}
+
+\end{document}
