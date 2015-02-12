@@ -1,0 +1,122 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage[dvipsnames]{color}
+\usepackage{graphicx}
+\usepackage{alltt}
+
+\definecolor{mygray}{gray}{.75}
+
+\titleformat{name=\section,numberless}[display]
+  {\normalfont\scshape\Large}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+80pt\relax}{2pt}\Huge}
+\titlespacing*{\section}{0pt}{30pt}{10pt}
+
+\titleformat{name=\subsection,numberless}[display]
+  {\normalfont\scshape}
+  {\hspace*{-10pt}#1}
+  {-15pt}
+  {\hspace*{-110pt}\rule{\dimexpr\textwidth+30pt\relax}{0.4pt}\Huge}
+\titlespacing*{\subsection}{0pt}{20pt}{5pt}
+
+
+\begin{document}
+
+\noindent\Large\textbf{CM2303 (Algorithms \& Data Structures)}\\
+\noindent\large\textit{Non-assessed Labs}
+\vskip30pt
+
+\section*{Lab 2.4: Branch and Bound: The Knapsack Problem}
+
+The knapsack problem is a famous optimisation problem, in which there is a knapsack with a given weight capacity and a set of items to placed in the knapsack. Each item has a weight and a profit, and the problem is focussed around filling the knapsack as much as possible whilst maximising profit.
+
+In this session we will use three different branch-and-bound algorithms for solving this problem. Please refer to your lecture notes for more information on branch-and-bound algorithms.
+
+Lab 2.4 has no prerequisite labs.
+
+\begin{enumerate}
+
+    \item Write a class called \texttt{Item} to represent an item to place in the knapsack. \texttt{Item} should have a constructor that accepts two integer arguments: a weight and a profit, and public methods for getting the item's weight and profit.
+
+    \item Write a public method for \texttt{Item} that returns the profit-weight ratio of the item. Consider which return type you might need for this method.
+
+    \item Write a class called \texttt{Knapsack} to represent the knapsack in which items are placed. This class should maintain a list of \texttt{Item}s and have a constructor that initialises the knapsack with an integer maximum capacity.
+
+    \item Write two public methods for \texttt{Knapsack} - \texttt{get\_weight()} and \texttt{get\_profit()} - that respectively return the total weight and profit of the knapsack.
+
+    \item Write a public method for \texttt{Knapsack} that accepts a single \texttt{Item} object and adds it to the knapsack. You might like to place a check inside this method to see if the knapsack weight has exceeded capacity.
+
+    \item Below is the outline pseudocode for finding the lower bound of the branch and bound algorithm for a given capacity and a list of items to add to the knapsack. This method sorts the input list of items by profit-weight ratio in order to find those that are the most valuable. It then adds one at a time to the knapsack for as long as its total weight is less than its capacity. The item that would `break' the knapsack is known as the \textit{break item}.
+\begin{alltt}
+procedure branch\_and\_bound\_lower:
+    Inputs: \(capacity\) (int), \(items\) (list)
+    Output: filled knapsack, \(k\)
+
+    \(sorted \gets items\) sorted in order of profit-weight ratio
+    \(k \gets\) knapsack initialised with capacity \(capacity\)
+    
+    for \(item \in sorted\):
+        if \(k\)'s weight + \(item\)'s weight \(\leq capacity\):
+            add \(item\) to \(k\)
+
+    return \(k\)
+\end{alltt}
+    Implement this algorithm by writing a method called \texttt{branch\_and\_bound\_lower()}. This method will need access to your \texttt{Knapsack} and \texttt{Item} classes.
+
+    \item The method \texttt{branch\_and\_bound\_lower()} could be improved: if there are item(s) beyond the break item in the $sorted$ list that would fit in the knapsack, then they may as well be added. They might not have the highest profit-weight ratio of those left, but at least the total profit of the knapsack items would be increased.
+
+    Write a new method, called \texttt{branch\_and\_bound\_lower\_improved()}, that implements this improvement.
+
+    \item Below is a table of items, each with a weight and a profit value.\\
+    \begin{center}
+    \begin{tabular}{ c | c }
+        Weight & Profit\\
+        \hline
+        \hline
+        42 & 92\\
+        45 & 57\\
+        29 & 49\\
+        50 & 50\\
+        53 & 60\\
+        80 & 40\\
+        38 & 43\\
+        63 & 67\\
+        85 & 84\\
+        89 & 87\\
+        82 & 72\\
+        \hline
+    \end{tabular}
+    \end{center}
+    In a main method, or elsewhere, create a list of \texttt{Item}s corresponding to the above table.
+
+    \item Using a capacity of 165, pass your list of \texttt{Item}s to your two branch-and-bound methods in order to fill the knapsack. Then verify your resultant knapsack objects by comparing their weights and profits to the values below.
+
+    \textbf{Lower bound:}\\
+    Total weight: 116\\
+    Total profit: 198
+
+    \textbf{Lower bound improved:}\\
+    Total weight: 154\\
+    Total profit: 241\\
+
+    Notice that the weight and profit of the knapsack is greater in the improved approach.
+    
+    \item In our improved lower-bound method we take an item (or multiple items in some cases) beyond the break item that is/are able to fit in the knapsack. However, the item(s) added do not have the best profit-weight ratio. An upper bound for the branch-and-bound algorithm can be calculated by instead only adding a \textit{proportion} of the break item such that it completely fills the knapsack. This means that we only focus on the items that have the highest profit-weight ratio, and thus our knapsack will convey maximum profit.
+
+    In cases where the resultant proportionate profit is not an integer, we \textit{round down} to the nearest int.
+
+    Write a new method, called \texttt{branch\_and\_bound\_upper()}, that implements this change.
+    
+    \item Verify that your upper-bound method works by passing the same list of \texttt{Item}s and capacity to the method and comparing the resultant knapsack to the below values.
+
+    \textbf{Upper bound:}\\
+    Total weight: 165\\
+    Total profit: 253
+
+    Notice that the knapsack's total weight is now equal to its capacity. The profit is now maximised for this instance of the knapsack problem.
+
+\end{enumerate}
+
+\end{document}
