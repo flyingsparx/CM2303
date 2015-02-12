@@ -1,3 +1,8 @@
+/*
+ * This file represents an example of the changes 
+ * after completing Question 11 of Lab 2.5.
+ */
+
 class LinkedListElement<T>{
     private LinkedListElement<T> next_element;
     private T data;

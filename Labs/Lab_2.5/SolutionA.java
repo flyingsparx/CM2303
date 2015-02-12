@@ -1,3 +1,8 @@
+/*
+ * This file is the example solution up until Question 10
+ * of Lab 2.5.
+ */ 
+
 class LinkedListElement{
     private LinkedListElement next_element;
     private String data;
