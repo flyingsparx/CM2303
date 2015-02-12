@@ -30,9 +30,89 @@
 
 \section*{Lab 2.5: Linked Lists}
 
+In this lab we will replicate some of the functionality of a normal Java ArrayList, yet without using any inbuilt Java array or Collection/List classes. Instead, we will implement a \textit{linked list}. Linked lists work by storing data in `element' objects, each of which storing a reference to the next element in the list. This is known as a `singly-linked list', since references are only stored forwards from the front of the list.
+
+As such, navigating through the singly-linked list must start from the first element of the list and follow the references until the required element is found. Our initial list will be used to store objects only of type \texttt{String}. 
+
 Lab 2.5 has no prerequisite labs.
 
 \begin{enumerate}
+
+    \item Write a Java class, called \texttt{LinkedListElement}, which will represent an individual element in our linked list. The class should contain two private fields: a String to represent the data held in this element, and another \texttt{LinkedListElement} that represents the next element in the list chain.
+
+    \item Write a constructor for \texttt{LinkedListElement} that accepts a single String argument to initialise the element. The class also needs a method for getting the data held by the element and a method for getting the next element in the list chain.
+
+    \item Write a public method for \texttt{LinkedListElement} that accepts a single \texttt{LinkedListElement} object and sets the next element in the list chain to this argument object.
+
+    \item Write a class called \texttt{LinkedList} that maintains one \texttt{LinkedListElement} (called \texttt{head}). The constructor for this class should initialise the head of the list with \texttt{null} data.
+
+   \item Write a public method for \texttt{LinkedList}, called \texttt{add()}, that accepts a single String argument representing data to be added to the list. The pseudocode below outlines the procedure for this method.
+\begin{alltt}
+procedure add:
+    Input: \(data\) (String)
+    
+    \(current\_list\_end \gets head\)
+    while \(current\_list\_end\)'s next element \(\neq null\):
+        \(current\_list\_end \gets current\_list\_end\)'s next element 
+
+    \(current\_list\_end \gets \) new LinkedListElement with data \(data\)
+\end{alltt}
+
+    Essentially, the method follows the chain of elements currently in the list until the last element (in the case when the list is `empty', the end is the \texttt{head} element). The method then adds a new element with the desired data as the next element to the end element, extending the list.
+
+    Implement this method.
+
+    \item Java ArrayLists also support inserting elements at a desired index of the list. Overload \texttt{add()} with another method that also accepts an additional integer argument, representing the index at which to insert the new element. Implement this overloaded method. \textit{(Hint: for this question, you will need to create a new element and then modify the chain to support the new insertion).}
+
+    \item Write a method for \texttt{LinkedList}, called \texttt{get()}, that accepts a single integer argument representing the index of an element in the list to return. This method should follow the chain along for the desired number of steps and then return the data stored in the relevent element.
+
+    \item Write a method for \texttt{LinkedList}, called \texttt{remove()}, that accepts a single integer argument representing the index of an element in the list to remove. This will be similar to your second \texttt{add()} method in that you need to modify the references bwteeen certain elements of the chain.
+
+    \item Modify your \texttt{add()} methods and your \texttt{remove()} method such that they modify an integer counter representing the current length of the list. Write a method for \texttt{LinkedList}, called \texttt{size()}, that returns the current length of the linked list.
+
+    \item We have now replicated the use of and most common methods in a standard Java ArrayList, but using a linked list:
+        \begin{itemize}
+            \item \texttt{add(String data)} - Append a new element with data \texttt{data} to the end of the list
+            \item \texttt{add(String data, int index)} - Insert a new element at a specific index of the list
+            \item \texttt{String get(int index)} - Return the string stored in the specified index of the list
+            \item \texttt{remove(int index)} - Remove the element at a specific index of the list
+            \item \texttt{int size()} - Return the current length of the list
+        \end{itemize}
+    
+        Test your implementation by writing some code (in a main method or elsewhere).
+\begin{verbatim}
+LinkedList list = new LinkedList();
+list.add("one");
+list.add("two");
+list.add("three");
+list.add("four");
+list.add("five", 2);
+list.remove(1);
+for(int i = 0; i < list.size(); i++){
+    System.out.println(list.get(i));
+}
+\end{verbatim}
+    The above code should result in the following output.
+\begin{verbatim}
+$ java LinkedList
+one
+five
+three
+four
+\end{verbatim}
+
+    \item \textbf{Non-mandatory}\\
+        This question is more of a Java-specific programming problem than an algorithmic one, so only proceed if you have time or if you are interested.
+
+        Standard Java ArrayLists use \textit{generics} to allow the storage of any type of data. In our above implementation we only allow Strings to be stored. Research Java generics and modify your code such that a \texttt{LinkedList} can be initialised and used with any data type. For example:
+
+\begin{verbatim}
+LinkedList<Integer> list = new LinkedList<Integer>();
+list.add(1);
+list.add(2);
+list.add(3, 1);
+list.remove(1);
+\end{verbatim}
 
 \end{enumerate}
 
